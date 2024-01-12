@@ -2,32 +2,32 @@
 import { db } from "@/server/db";
 import { z } from "zod";
 import { revalidatePath } from "next/cache";
+import { auth } from "@clerk/nextjs";
 
-export type State = {
-    errors?: {
-        title?: string[];
-    },
-    message?: string | null;
-}
-
-const CreatePostSchema = z.object({
-    title: z.string().min(3, {
-        message: 'Title must be at least 3 characters'
-    }),
-    content: z.string()
-});
-
-export async function create(formData: FormData) {
-    const { title, content } = CreatePostSchema.parse({
+export async function create(prevState: any, formData: FormData) {
+    const { userId } = auth();
+    if (!userId) {
+        return { message: 'please login' };
+    }
+    const schema = z.object({
+        title: z.string().min(1),
+        content: z.string().min(1),
+    })
+    const validateFields = schema.safeParse({
         title: formData.get('title'),
         content: formData.get('content'),
     });
+
+    if (!validateFields.success) {
+        return { message: 'please give me a string' };
+    }
+    const { title, content } = validateFields.data;
 
     await db.post.create({
         data: {
             title,
             content,
-            userId: 'testklsailnilfasdf'
+            userId
         }
     });
 

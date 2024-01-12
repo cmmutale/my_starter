@@ -3,6 +3,10 @@ export const AppConfig = {
         {
             title: 'Dashboard',
             url: '/app',
+        },
+        {
+            title: 'Todo',
+            url: '/app/todo',
         }
     ]
 }
