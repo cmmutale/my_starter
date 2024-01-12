@@ -16,3 +16,10 @@ model Post {
   content             String
   userId              String
 }
+
+model TodoItem {
+  id                  String @id @default(cuid())
+  title               String
+  userId              String
+  completed           Boolean
+}
