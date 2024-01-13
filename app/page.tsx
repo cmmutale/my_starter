@@ -1,3 +1,4 @@
+import Navbar from '@/components/globals/Navbar'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import React from 'react'
@@ -5,15 +6,7 @@ import React from 'react'
 function Home() {
   return (
     <>
-      <header className='h-[60px]'>
-        <div className="app-width wrapper h-full flex items-center justify-between">
-          <Link href='/sign-in'>
-            <Button>
-              Login
-            </Button>
-          </Link>
-        </div>
-      </header>
+      <Navbar />
       <main className=''>
         <div className='max-w-3xl mx-auto w-full md:px-0 px-2'>
           {/* Masthead title introducing the app */}

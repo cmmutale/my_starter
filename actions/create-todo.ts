@@ -3,8 +3,14 @@ import { revalidatePath } from "next/cache"
 import { db } from "@/server/db"
 import { z } from 'zod'
 import { redirect } from "next/navigation";
+import { auth } from "@clerk/nextjs";
 
 export async function createTodo(prevState: any, formData: FormData) {
+    const { userId } = auth();
+    if (!userId) {
+        return { message: 'not logged in' };
+    }
+
     const schema = z.object({
         todo: z.string().min(1),
     });
@@ -22,7 +28,7 @@ export async function createTodo(prevState: any, formData: FormData) {
         await db.todoItem.create({
             data: {
                 title: todo,
-                userId: 'myUser',
+                userId,
                 completed: false,
             }
         });

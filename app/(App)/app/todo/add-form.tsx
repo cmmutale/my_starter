@@ -39,7 +39,7 @@ function AddForm() {
             <form
                 ref={formRef}
                 action={onSubmit}
-                className='flex bg-white py-1 px-2 rounded-md items-center shadow-sm'>
+                className='flex bg-white p-1 rounded-md items-center shadow-sm'>
                 {/* <label htmlFor="todo">Enter task</label> */}
                 <input
                     type="text"
